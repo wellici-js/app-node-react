@@ -32,12 +32,12 @@
 
 * Pelos que estão vivos
 
-<img src="/img/2019-06-09-143125_1920x1080_scrot.png">
+<img src="/img/vivos.png">
 
 * Pelos que estão mortos
 
-<img src="/img/2019-06-09-143140_1920x1080_scrot.png">
+<img src="/img/mortos.png">
 
 * Por nome
 
-<img src="/img/2019-06-09-143149_1920x1080_scrot.png">
+<img src="/img/individual.png">
