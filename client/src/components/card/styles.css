@@ -1,0 +1,19 @@
+.card {
+    display: inline-block !important;
+    width: 22rem;
+    margin: 22px;
+    height: 850px;
+}
+
+.cont {
+    height: 50px;
+    width: 300px;
+    margin: auto;
+}
+
+.cont-localite {
+    height: 120px;
+    width: 300px;
+    /* margin: auto; */
+    text-align: initial; 
+}

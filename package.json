@@ -1,0 +1,23 @@
+{
+  "name": "app-node-react",
+  "version": "1.0.0",
+  "description": "API em nodejs para mostrar personagens de Rick and Morty",
+  "scripts": {
+    "client": "cd client && npm start",
+    "server": "node server.js",
+    "dev": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\""
+  },
+  "dependencies": {
+    "bootstrap": "^4.3.1",
+    "express": "^4.16.2"
+  },
+  "devDependencies": {
+    "concurrently": "^3.5.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "wellici-js"
+  },
+  "author": "Wellici Araujo",
+  "license": "ISC"
+}
