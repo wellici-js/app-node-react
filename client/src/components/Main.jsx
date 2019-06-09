@@ -25,7 +25,7 @@ export default class Main extends React.Component {
     
     componentDidMount() {
         this.callApi()
-          .then(res => this.setState({ response: res.express}))
+          .then(res => this.setState({ response: res.express.sort((a,b) => a.name < b.name?-1:1).sort((a,b) => a.episode.length>b.episode.length?1:-1) }))
           .catch(err => console.log(err));
     }
 

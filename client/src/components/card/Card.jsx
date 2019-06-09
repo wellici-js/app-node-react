@@ -9,14 +9,6 @@ export default class Card extends React.Component {
         pt: ['Vivo', 'Morto','Desconhecido','Masculino','Feminino','Humano','Alienigena','Cronenberg']
     }
 
-    // tradutor(prop) {
-    //     return this.state.en.map((item, index) => {
-    //         if (prop === item) {
-    //             return this.state.pt[index];
-    //         }
-    //     })
-    // }
-
     tradutor(prop) {
         return this.state.en.map((item, index) => item === prop? this.state.pt[index]: false);
     }
