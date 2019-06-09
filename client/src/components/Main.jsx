@@ -2,8 +2,17 @@ import React from 'react';
 import Card from './card/Card';
 
 export default class Main extends React.Component {
+    constructor() {
+        super()
+        this.handleChange.bind(this);
+    }
     state = {
-        response: []
+        response: [],
+        todos: true,
+        vivos: false,
+        mortos: false,
+        nome: '',
+        search: false
     };
 
     callApi = async () => {
@@ -35,10 +44,75 @@ export default class Main extends React.Component {
         }
     }
 
-    render(){
+    renderHeader() {
         return (
-            <div className="container-fluid">
-                {this.state.response.map(item => {
+            <nav className="navbar navbar-expand-lg navbar-light bg-light">
+                <a className="navbar-brand" href="#">Personagens</a>
+                <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span className="navbar-toggler-icon"></span>
+                </button>
+
+                <div className="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul className="navbar-nav mr-auto">
+                    
+                    <li className="nav-item">
+                        <button className="nav-link btn-success" 
+                        onClick={() => {
+                            this.setState({vivos: true})
+                            this.setState({mortos: false})
+                            this.setState({todos: false})
+                            this.setState({search: false})
+                            }}>Vivos</button>
+                    </li>
+                    <li className="nav-item">
+                        <button className="nav-link btn-danger" 
+                        onClick={() => {
+                            this.setState({vivos: false})
+                            this.setState({mortos: true})
+                            this.setState({todos: false})
+                            this.setState({search: false})
+                            }}>Mortos</button>
+                    </li>
+
+                    <li className="nav-item">
+                        <button className="nav-link btn-primary" 
+                        onClick={() => {
+                            this.setState({vivos: false})
+                            this.setState({mortos: false})
+                            this.setState({todos: true})
+                            this.setState({search: false})
+                            }}>Todos</button>
+                    </li>
+                    
+                    </ul>
+                    <form className="form-inline my-2 my-lg-0">
+                    
+                    <input lassName="form-control mr-sm-2" type="text" placeholder="Search"
+                     value={this.state.nome} onChange={this.handleChange.bind(this)}/>
+                    <button className="btn btn-outline-success my-2 my-sm-0"
+                        onClick={() => {
+                            this.setState({vivos: false})
+                            this.setState({mortos: false})
+                            this.setState({todos: false})
+                            this.setState({search: true})
+                            }}>Search</button>
+                    </form>
+                </div>
+            </nav>
+        );
+    }
+
+    handleChange(event) {
+        this.setState({nome: event.target.value});
+        console.log(this.state.search)
+        console.log(this.state.nome)
+    }
+
+    renderCondicional() {
+        if(this.state.vivos){
+            return this.state.response.map(item => {
+                if(item.status === 'Alive'){
+
                     return (
                         <Card name={item.name} id={item.id} image={item.image}
                             status={item.status} color={item.status === 'Alive'? 'text-success': 'text-danger'}
@@ -46,8 +120,62 @@ export default class Main extends React.Component {
                             species={item.species} gender={item.gender} quantidade={item.episode.length} temp1={this.aparicoesTemporada(1,item.episode)}
                             temp2={this.aparicoesTemporada(2,item.episode)} temp3={this.aparicoesTemporada(3,item.episode)} 
                         ></Card>
-                    );
-                })}
+                 );
+                }
+
+            })
+        }
+        if(this.state.mortos){
+            return this.state.response.map(item => {
+                if(item.status === 'Dead'){
+
+                    return (
+                        <Card name={item.name} id={item.id} image={item.image}
+                            status={item.status} color={item.status === 'Alive'? 'text-success': 'text-danger'}
+                            key={item.id} origin={item.origin} location={item.location}
+                            species={item.species} gender={item.gender} quantidade={item.episode.length} temp1={this.aparicoesTemporada(1,item.episode)}
+                            temp2={this.aparicoesTemporada(2,item.episode)} temp3={this.aparicoesTemporada(3,item.episode)} 
+                        ></Card>
+                 );
+                }
+
+            })
+        }
+        if(this.state.todos){
+            return this.state.response.map(item => {
+                    return (
+                        <Card name={item.name} id={item.id} image={item.image}
+                            status={item.status} color={item.status === 'Alive'? 'text-success': 'text-danger'}
+                            key={item.id} origin={item.origin} location={item.location}
+                            species={item.species} gender={item.gender} quantidade={item.episode.length} temp1={this.aparicoesTemporada(1,item.episode)}
+                            temp2={this.aparicoesTemporada(2,item.episode)} temp3={this.aparicoesTemporada(3,item.episode)} 
+                        ></Card>
+                 );
+            })
+        }
+        if(this.state.search){
+            return this.state.response.map(item => {
+                if(item.name === this.state.nome){
+
+                    return (
+                        <Card name={item.name} id={item.id} image={item.image}
+                            status={item.status} color={item.status === 'Alive'? 'text-success': 'text-danger'}
+                            key={item.id} origin={item.origin} location={item.location}
+                            species={item.species} gender={item.gender} quantidade={item.episode.length} temp1={this.aparicoesTemporada(1,item.episode)}
+                            temp2={this.aparicoesTemporada(2,item.episode)} temp3={this.aparicoesTemporada(3,item.episode)} 
+                        ></Card>
+                 );
+                }
+
+            })
+        }
+    }
+
+    render(){
+        return (
+            <div className="container-fluid">
+                {this.renderHeader()}
+                {this.renderCondicional()}
             </div>
         );
     }
