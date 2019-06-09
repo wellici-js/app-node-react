@@ -47,7 +47,7 @@ export default class Main extends React.Component {
     renderHeader() {
         return (
             <nav className="navbar navbar-expand-lg navbar-light bg-light">
-                <a className="navbar-brand" href="#">Personagens</a>
+                <h3 className="navbar-brand" >Personagens</h3>
                 <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span className="navbar-toggler-icon"></span>
                 </button>
@@ -88,14 +88,16 @@ export default class Main extends React.Component {
                     <form className="form-inline my-2 my-lg-0">
                     
                     <input lassName="form-control mr-sm-2" type="text" placeholder="Search"
-                     value={this.state.nome} onChange={this.handleChange.bind(this)}/>
-                    <button className="btn btn-outline-success my-2 my-sm-0"
-                        onClick={() => {
-                            this.setState({vivos: false})
-                            this.setState({mortos: false})
-                            this.setState({todos: false})
-                            this.setState({search: true})
-                            }}>Search</button>
+                     value={this.state.nome} 
+                     onChange={this.handleChange.bind(this)}
+                     onFocus={() => {
+                        this.setState({vivos: false})
+                        this.setState({mortos: false})
+                        this.setState({todos: false})
+                        this.setState({search: true})
+                     }}
+                    />
+
                     </form>
                 </div>
             </nav>
@@ -104,8 +106,6 @@ export default class Main extends React.Component {
 
     handleChange(event) {
         this.setState({nome: event.target.value});
-        console.log(this.state.search)
-        console.log(this.state.nome)
     }
 
     renderCondicional() {
@@ -121,6 +121,8 @@ export default class Main extends React.Component {
                             temp2={this.aparicoesTemporada(2,item.episode)} temp3={this.aparicoesTemporada(3,item.episode)} 
                         ></Card>
                  );
+                }else {
+                    return false;
                 }
 
             })
@@ -137,6 +139,8 @@ export default class Main extends React.Component {
                             temp2={this.aparicoesTemporada(2,item.episode)} temp3={this.aparicoesTemporada(3,item.episode)} 
                         ></Card>
                  );
+                }else {
+                    return false;
                 }
 
             })
@@ -155,7 +159,7 @@ export default class Main extends React.Component {
         }
         if(this.state.search){
             return this.state.response.map(item => {
-                if(item.name === this.state.nome){
+                if(item.name.toUpperCase().includes(this.state.nome.toUpperCase())){
 
                     return (
                         <Card name={item.name} id={item.id} image={item.image}
@@ -165,6 +169,8 @@ export default class Main extends React.Component {
                             temp2={this.aparicoesTemporada(2,item.episode)} temp3={this.aparicoesTemporada(3,item.episode)} 
                         ></Card>
                  );
+                }else {
+                    return false;
                 }
 
             })
